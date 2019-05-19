@@ -45,4 +45,3 @@ var mySingleton = (function(){
 /**
  *
  */
-/
