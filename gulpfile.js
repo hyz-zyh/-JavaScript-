@@ -2,18 +2,44 @@ const gulp = require('gulp');
 const exec = require('child_process').exec;
 const argv = require('minimist')(process.argv.slice(2));
 
+
+//status
+gulp.task('status', function (cb) {
+   exec('git status', function (err, stdout, stderr) {
+       console.log('以下文件发生改变：\n'+stdout);
+       console.error(stderr);
+       cb(err);
+   }) ;
+});
+
 // add   等同于执行 git add * 命令(具体可以自己配置,如 add -A或者add .)
 gulp.task('add', function (cb) {
     exec('git add *', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.error(stderr);
         cb(err);
     });
 });
 
+// commit   附加自定义commit的push操作
+gulp.task('commit', function (cb) {
+    if (!argv.a) {
+        commitcon = "update";
+    } else {
+        var commitcon = argv.a
+    }
+    exec('git commit -m ' + commitcon, function (err, stdout, stderr) {
+        console.log(stdout);
+        console.error(stderr);
+        cb(err);
+    });
+});
 
 // push  执行git push 操作
 gulp.task('push', function (cb) {
     exec('git push', function (err, stdout, stderr) {
-        console.log(stdout, stderr);
+        console.log(stdout);
+        console.error(stderr);
         cb(err);
     });
 });
@@ -21,19 +47,8 @@ gulp.task('push', function (cb) {
 // pull  执行git pull 操作
 gulp.task('pull', function (cb) {
     exec('git pull', function (err, stdout, stderr) {
-        cb(err);
-    });
-});
-
-// commit   附加自定义commit的push操作
-var commitdefault = 's';
-gulp.task('commit', function (cb) {
-    if (!argv.a) {
-        commitcon = commitdefault;
-    } else {
-        var commitcon = argv.a
-    }
-    exec('git commit -m ' + commitcon, function (err, stdout, stderr) {
+        console.log(stdout);
+        console.error(stderr);
         cb(err);
     });
 });
