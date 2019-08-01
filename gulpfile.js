@@ -23,6 +23,7 @@ gulp.task('add', function (cb) {
 
 // commit   附加自定义commit的push操作
 gulp.task('commit', function (cb) {
+    console.log(argv.a);
     if (!argv.a) {
         commitcon = "update";
     } else {
