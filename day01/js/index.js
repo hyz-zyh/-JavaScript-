@@ -184,7 +184,7 @@ var mySingleton = (function () {
 		};
 
 		//为主subject 的观察者列表添加新的观察者
-		controlCheckbox.AddObserver(check);
+		controlCheckbox.AddObbserver(check);
 
 		//将观察者附件到容器上
 		container.appendChild(check);

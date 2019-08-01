@@ -1,0 +1,21 @@
+{
+  "name": "JavascriptMode",
+  "version": "1.0.0",
+  "description": "学习JavaScript设计模式",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@yanhuzheng.github.com:hyz-zyh/-JavaScript-.git"
+  },
+  "author": "zyh",
+  "license": "ISC",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "gulp": "^4.0.2",
+    "gulp-sequence": "^1.0.0",
+    "minimist": "^1.2.0"
+  }
+}
