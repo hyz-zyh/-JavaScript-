@@ -29,7 +29,7 @@ gulp.task('commit', function (cb) {
     } else {
         var commitcon = argv.a
     }
-    exec('git commit -m ' + commitcon, function (err, stdout, stderr) {
+    exec('git commit -m ' + '"' + commitcon + '"', function (err, stdout, stderr) {
         console.log(stdout);
         console.error(stderr);
         cb(err);
