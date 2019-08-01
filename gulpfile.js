@@ -58,7 +58,7 @@ gulp.task('pull', function (cb) {
 //**********************具体使用命令*****************************
 
 //  默认  gulp 命令推送到仓库  (如需自定义 commit  执行  gulp -a 自定义commit)
-gulp.task('default', gulp.series('add', 'commit', 'pull', 'push'));
+gulp.task('default', gulp.series('status', 'add', 'commit', 'pull', 'push'));
 
 //    gulp b 命令执行build打包，并且推送到仓库 (如需自定义 commit  执行  gulp b -a 自定义commit)
-gulp.task('b', gulp.series('add', 'commit'));
+gulp.task('b', gulp.series('status', 'add', 'commit'));
