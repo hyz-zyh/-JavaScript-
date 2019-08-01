@@ -1,31 +1,6 @@
-var gulp = require('gulp');
-var exec = require('child_process').exec;
-var gulpSequence = require('gulp-sequence')
-var argv = require('minimist')(process.argv.slice(2));
-
-
-
-//RUN  npm run build   打包命令(按照你项目的打包命令配置)
-gulp.task('build', function (cb) {
-    exec('npm run build', function (err, stdout, stderr) {
-        cb(err);
-    });
-});
-
-//RUN cd child 进到子目录
-var child='administrator'  //设置子目录变量名
-gulp.task('child', function (cb) {
-    exec('cd '+child, function (err, stdout, stderr) {
-        cb(err);
-    });
-});
-
-// cmd back 返回上一层
-gulp.task('back', function (cb) {
-    exec('cd ..', function (err, stdout, stderr) {
-        cb(err);
-    });
-});
+const gulp = require('gulp');
+const exec = require('child_process').exec;
+const argv = require('minimist')(process.argv.slice(2));
 
 // add   等同于执行 git add * 命令(具体可以自己配置,如 add -A或者add .)
 gulp.task('add', function (cb) {
@@ -38,6 +13,7 @@ gulp.task('add', function (cb) {
 // push  执行git push 操作
 gulp.task('push', function (cb) {
     exec('git push', function (err, stdout, stderr) {
+        console.log(stdout, stderr);
         cb(err);
     });
 });
@@ -50,14 +26,14 @@ gulp.task('pull', function (cb) {
 });
 
 // commit   附加自定义commit的push操作
-var commitdefault='s'
+var commitdefault = 's';
 gulp.task('commit', function (cb) {
-    if(!argv.a){
-        commitcon=commitdefault
-    }else {
-        var commitcon=argv.a
+    if (!argv.a) {
+        commitcon = commitdefault;
+    } else {
+        var commitcon = argv.a
     }
-    exec('git commit -m '+commitcon, function (err, stdout, stderr) {
+    exec('git commit -m ' + commitcon, function (err, stdout, stderr) {
         cb(err);
     });
 });
@@ -66,13 +42,7 @@ gulp.task('commit', function (cb) {
 //**********************具体使用命令*****************************
 
 //  默认  gulp 命令推送到仓库  (如需自定义 commit  执行  gulp -a 自定义commit)
-gulp.task( 'default', gulp.series( 'add','commit', 'push'));
+gulp.task('default', gulp.series('add', 'commit', 'pull', 'push'));
 
 //    gulp b 命令执行build打包，并且推送到仓库 (如需自定义 commit  执行  gulp b -a 自定义commit)
-gulp.task( 'b', gulp.series( 'build','add', 'commit', 'push'));
-
-//    gulp c 命令执行 子目录build打包，并且推送到仓库
-gulp.task( 'c', gulp.series( 'child','build','back','add', 'commit','push'));
-
-//    gulp p 命令更新远程仓库
-gulp.task( 'p', gulp.series('pull'));
+gulp.task('b', gulp.series('add', 'commit'));
